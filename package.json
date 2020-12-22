@@ -1,0 +1,15 @@
+{
+  "name": "cytoid-wiki",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/CytoidCommunity/Cytoid-wiki.git",
+  "author": "Teages <Teages@teages.xyz>",
+  "license": "None",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "devDependencies": {
+    "vuepress-theme-hope": "^1.7.9"
+  }
+}
