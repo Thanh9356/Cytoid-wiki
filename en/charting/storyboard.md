@@ -1,6 +1,6 @@
 # Full Specification
 
-## Version: 2.0.2
+**Current version: 2.0.2**
 
 This specification details the storyboard schema; you can use this as a reference, but it is strongly encouraged to **read the entire document** before you start storyboarding to get a glimpse of the power (and limitations) of storyboarding.
 
@@ -8,7 +8,7 @@ This specification details the storyboard schema; you can use this as a referenc
 
 [CytoidPlayer 2.0.2.zip](https://drive.google.com/file/d/1skBP8u_LTDloTxXr3cVl8YdJzmgMkywi/view?usp=drivesdk)
 
-🌟 **Coordinate systems**
+### Coordinate systems
 
 - Before we get into storyboarding, let's understand the game's different canvas and their coordinate systems:
     - The canvas for **storyboard** **sprites and texts**, or **stage**, has a resolution of 800 (width) * 600 (height). (0, 0) is at the center. (400, 300) is the upper right corner. (-400, -300) is the lower left corner.
@@ -78,7 +78,7 @@ This specification details the storyboard schema; you can use this as a referenc
 
     - Finally, you should probably not transform any value to/from the depth coordinate system, as it does not make mathematical sense. But you can do it nonetheless! Feel free to try. 😇
 
-**Root object**
+### Root object
 
 - **texts**: array of text objects.
 - **sprites**: array of sprite objects.
@@ -89,7 +89,7 @@ This specification details the storyboard schema; you can use this as a referenc
 - 🌟 **note_controllers**: array of note controller objects.
 - **templates**: array of templates.
 
-**Base state** (Parameters inherited by all objects)
+### Base state (Parameters inherited by all objects)
 
 - 🌟 There are two kinds of objects: **scene objects** (texts, sprites, lines, and videos) that appear in the scene, and **controller objects** (scene controllers and note controllers) that manipulate the scene components without an entity form.
 - States control how objects behave at different points of time. Not every moment of the object needs to be a state; only the "key" moments need to be defined.
@@ -221,7 +221,7 @@ This specification details the storyboard schema; you can use this as a referenc
     - In the following example along with the uses of triggers, the `Hello world!` text is spawned and displayed when note 4 is cleared, transitions into zero opacity before destroyed.
 
         ```json
-        ...	
+        ...
         	"texts": [
         		{
         			"id": "hello_world",
@@ -302,7 +302,7 @@ This specification details the storyboard schema; you can use this as a referenc
 
         This is useful when you want to reuse multiple states at once. See the `pulse` template in the storyboard example.
 
-**Scene object state** (Parameters inherited by text, sprite, video and line states)
+### Scene object state (Parameters inherited by text, sprite, video and line states)
 
 - **x**: x-coordinate of the object. Default `0`. Default coordinate system stageX.
 - **y**: y-coordinate of the object. Default `0`. Default coordinate system stageY.
@@ -331,7 +331,7 @@ This specification details the storyboard schema; you can use this as a referenc
 - **fill_width**: if `true`, `width` and `height` are ignored, and this scene object automatically scratches to the stage's width and has a height of `10000`.
     - Useful if you just want to make a sprite that fills the entire viewport, like a background image.
 
-**Text state**
+###### Text state
 
 - **text**: the text to be displayed. Note that (very limited) [rich text](https://docs.unity3d.com/Manual/StyledText.html) is supported (bold, italic, inline size, inline color).
 - **color**: color of the text in the hex representation (i.e. "#fff" or "#4568dc"). Default `"#fff"` (white).
@@ -347,13 +347,13 @@ This specification details the storyboard schema; you can use this as a referenc
 - **preserve_aspect**: if `true`, the image aspect ratio is preserved. Default `true`.
 - **color**: color tint of the sprite in the hex representation. Default `"#fff"` (white), which is equivalent to untinted.
 
-🌟 **Video state** Experimental!
+###### Video state (WIP)
 
 - **path**: relative path to the video file. **Since supported video codecs are different across platforms and devices, it is strongly recommended to use a standard H.264 `.mp4` file at maximum 720p resolution.**
     - Video **will not pause** when the game is paused. This is a known issue.
 - **color**: color tint of the video in the hex representation. Default `"#fff"` (white), which is equivalent to untinted.
 
-🌟 **Note controller state**
+###### Note controller state
 
 - A note controller overrides and animates the properties a single note defined in the chart file. This is the most powerful storybaord technique so far. **You can implement almost any desired gameplay in Cytoid using note controllers!**
 - **note**: integer ID of the note, as defined in the chart file.
@@ -597,7 +597,7 @@ This specification details the storyboard schema; you can use this as a referenc
         Then every `$note` is automatically replaced by the actual note ID in their context:
 
         ```json
-        { 
+        {
           // Within this note controller, $note is always 1
         	"note": 1,
           "opacity": 1,
@@ -689,7 +689,7 @@ This specification details the storyboard schema; you can use this as a referenc
     - To move a note in a curve, use two note controllers, one animates `x` and one animates `y`, each with different `easing` (for example, `easeInCirc` and `easeOutCirc` so that the note follows a trajectory of quarter of a circle).
     - Fix `y` to a constant value to mimic osu-style gameplay.
 
-🌟 **Line state**
+###### Line state
 
 - "Line" is actually a misnomer. A line object renders connected line segments. You can use it to mimic a scanline or draw any geometry shape, like a triangle.
 - Although the line state *technically* inherits from the scene object state, only a very limited subset of parameters in the scene object state are supported: `opacity`, `layer` and `order`.
@@ -752,7 +752,7 @@ This specification details the storyboard schema; you can use this as a referenc
 
     Try this yourself and figure out why the triangle animates like that! 😉
 
-**Scene controller state**
+###### Scene controller state
 
 - **storyboard_opacity**: `opacity` of all storyboard scene objects. Default `1`.
 - **ui_opacity**: opacity of the game UI (score, info, pause button...). Default `1`.
@@ -767,9 +767,9 @@ This specification details the storyboard schema; you can use this as a referenc
 
         ```json
         ...
-        "note_fill_colors": ["#4568dc", "#4568dc", 
-        											null, null, 
-        											null, null, 
+        "note_fill_colors": ["#4568dc", "#4568dc",
+        											null, null,
+        											null, null,
         											null, null,
         											"#000000", "#000000",
         											null, null],
@@ -789,13 +789,13 @@ This specification details the storyboard schema; you can use this as a referenc
 - 🌟 **z**: z-coordinate of the camera. A greater value moves the camera closer to the notes, vice versa. Default `-10`. Default coordinate system depth.
 - **rot_x**, **rot_y**, **rot_z**: rotations of the camera. Default `0`.
     - Hint: if you rotate along the x or y axis, part of the scene may not be able to be seen; you have to adjust the coordinates of the camera accordingly. If change `rot_x`, move `y`; if change `rot_y`, move `x`.
-- 🌟 **Removed in 2.0.0. ~~vignette**: boolean to toggle the vignette effect. Default `false`.~~
-    - **~~vignette_intensity**: the intensity of the vignette effect. Ranged `0` to `1`.~~
-    - **~~vignette_color**: the color of the vignette effect in the hex representation.~~
-    - **~~vignette_start, vignette_end**: just play around with these values because no one knows what they exactly mean. Ranged `0` to `1`.~~
-- 🌟 **Removed in 2.0.0.** **~~chromatic**: boolean to toggle the chromatic aberration effect. Default `false`.~~
-    - **~~chromatic_intensity**: the intensity of the chromatic effect. Typically ranged `0` to `0.15`, although larger values can be set for distorting effects.~~
-    - **~~chromatic_start, chromatic_end**: just play around with these values because no one knows what they exactly mean. Ranged `0` to `1`.~~
+- **vignette** <span style="background-color:#ffe900;text-color:#3e2800;text-align:center;width:120%;height:32;box-sizing: border-box;border: 4px solid #ffe900"> ⚠️ **REMOVED**</span>: boolean to toggle the vignette effect. Default `false`.
+    - **vignette_intensity**: the intensity of the vignette effect. Ranged `0` to `1`.
+    - **vignette_color**: the color of the vignette effect in the hex representation.
+    - **vignette_start, vignette_end**: just play around with these values because no one knows what they exactly mean. Ranged `0` to `1`.
+- **chromatic** <span style="background-color:#ffe900;text-color:#3e2800;text-align:center;width:120%;height:32;box-sizing: border-box;border: 4px solid #ffe900"> ⚠️ **REMOVED**</span>: boolean to toggle the chromatic aberration effect. Default `false`.
+    - **chromatic_intensity**: the intensity of the chromatic effect. Typically ranged `0` to `0.15`, although larger values can be set for distorting effects.
+    - **chromatic_start, chromatic_end**: just play around with these values because no one knows what they exactly mean. Ranged `0` to `1`.
 - **chromatical**: boolean to toggle the chromatical ****effect. Default `false`.
     - This effect is basically an automated chromatic aberration effect.
     - **chromatical_fade**: the transparency of the chromatical effect. Ranged `0` to `1`.
@@ -839,17 +839,17 @@ This specification details the storyboard schema; you can use this as a referenc
 
 **Obsolete. Do not use—will be replaced with storyboard events in a future release.**
 
-**~~Trigger State *(Experimental)*~~**
+###### ~~Trigger State (Experimental)~~
 
 - ~~Note that triggers are currently poorly optimized. Spawning high-resolution sprites may result in lag spikes.~~
-- **~~type**: type of the trigger.~~
-    - `~~noteClear`: If any note in `notes` is cleared, this trigger is fired.~~
-    - `~~combo`: If the combo amount reachs `combo`, this trigger is fired.~~
-    - `~~score`: If the score amount reaches `score`, this trigger is fired **and destroyed, regardless of `uses`**.~~
-- **~~uses**: maximum amount of times this trigger is allowed to fire. If set to `0`, this trigger is allowed to fire indefinitely. Default `0`.~~
-- **~~notes**: (only when `type` equals `noteClear`) a list of note ids.~~
+- ~~**type**: type of the trigger.~~
+    - ~~`noteClear`: If any note in `notes` is cleared, this trigger is fired.~~
+    - ~~`combo`: If the combo amount reachs `combo`, this trigger is fired.~~
+    - ~~`score`: If the score amount reaches `score`, this trigger is fired **and destroyed, regardless of `uses`**.~~
+- ~~**uses**: maximum amount of times this trigger is allowed to fire. If set to `0`, this trigger is allowed to fire indefinitely. Default `0`.~~
+- ~~**notes**: (only when `type` equals `noteClear`) a list of note ids.~~
     - ~~Example: if set to `[352, 353, 390]` and `type` is set to `noteClear`, this trigger will fire when any of the notes 352, 353, and 390 is cleared.~~
-- **~~combo**: (only when `type` equals `combo`) an integer.~~
-- **~~score**: (only when `type` equals `score`) an integer.~~
-- **~~spawn**: a list of object ids to spawn.~~
-- **~~destroy**: a list of object ids to destroy. (Destroyed objects can be spawned again by another trigger.)~~
+- ~~**combo**: (only when `type` equals `combo`) an integer.~~
+- ~~**score**: (only when `type` equals `score`) an integer.~~
+- ~~**spawn**: a list of object ids to spawn.~~
+- ~~**destroy**: a list of object ids to destroy. (Destroyed objects can be spawned again by another trigger.)~~
