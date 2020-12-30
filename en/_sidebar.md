@@ -6,8 +6,8 @@
   - [Game mechanics](/cytoid/gameplay/)
       - [Note types](/cytoid/gameplay/general)
       - [Ranked v.s. Practice](/cytoid/gameplay/play-modes)
-    
-- [Charting](/charting/)
+
+- [Charting](/charting/introduction)
     - [Charting](/charting/charting)
       - [Charting with C1 format](/charting/c1/general)
         - [Chart with PCtyx](/charting/c1/pxtyx_old)
