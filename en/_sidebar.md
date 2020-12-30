@@ -18,7 +18,7 @@
         - [Chart with Mobile Chart Editor](/charting/c2/mobile-editor)
         - [Chart with other charting tools](/charting/c2/others)
 
-    - [Storyboarding](/charting/storyboarding)
+    - [Storyboarding](/charting/storyboard)
     - [Notice](/charting/notice)
     - [Source](charting/source)
 
